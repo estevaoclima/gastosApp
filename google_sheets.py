@@ -40,9 +40,13 @@ def conectar_planilha(): # new version to work online using streamlite cloude sy
 
 def adicionar_movimentacao(mov):
     sheet = conectar_planilha()
+
+    # converter/salvar como ponto para decimal (se entrada for com virgula para decimal), para conseguir trabalhar em Python como float
+    valor_br = f"{mov['valor']:.2f}".replace(".",",")
+    
     sheet.append_row([
         mov["data"],
-        mov["valor"],
+        valor_br,  # nao puxar valor original, converter antes para decimal em ponto
         mov["tipo"],
         mov["categoria"],
         mov["comentario"],
@@ -54,4 +58,7 @@ def carregar_dados():
     dados = sheet.get_all_records()
     return pd.DataFrame(dados)
 
+
+
+    
 
