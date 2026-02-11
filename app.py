@@ -59,7 +59,7 @@ with tab_add:
     st.subheader("Adicionar movimentação")
 
     valor = st.number_input("Valor (R$)", min_value=0.0, step=10.0)
-    valor = valor.replace(".","").replace(",",".")  # ajustar para decimal com ponto, para conseguir trabalhar com float em Python
+    #valor = valor.replace(".","").replace(",",".")  # ajustar para decimal com ponto, para conseguir trabalhar com float em Python
     data_mov = st.date_input("Data", value=date.today())
     tipo = st.selectbox("Tipo", TIPOS)
     categoria = st.selectbox("Categoria", CATEGORIAS)
@@ -159,5 +159,6 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
