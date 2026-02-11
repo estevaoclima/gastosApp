@@ -15,7 +15,7 @@ from google_sheets import adicionar_movimentacao, carregar_dados
 # Configuração da página
 # -----------------------------
 st.set_page_config(
-    page_title="Controle Financeiro",
+    page_title="Joca Gasta-gasta",
     layout="centered"
 )
 
@@ -58,7 +58,8 @@ tab_visao, tab_add = st.tabs(["📊 Visão financeira", "➕ Movimentação"])
 with tab_add:
     st.subheader("Adicionar movimentação")
 
-    valor = st.number_input("Valor (R$)", min_value=0.0, step=1.0)
+    valor = st.number_input("Valor (R$)", min_value=0.0, step=10.0)
+    valor = valor.replace(".","").replace(",",".")  # ajustar para decimal com ponto, para conseguir trabalhar com float em Python
     data_mov = st.date_input("Data", value=date.today())
     tipo = st.selectbox("Tipo", TIPOS)
     categoria = st.selectbox("Categoria", CATEGORIAS)
@@ -158,4 +159,5 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
