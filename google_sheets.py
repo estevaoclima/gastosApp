@@ -46,7 +46,7 @@ def adicionar_movimentacao(mov):
     
     sheet.append_row([
         mov["data"],
-        float(mov["valor"])#valor_br,  # nao puxar valor original, converter antes para decimal em ponto
+        mov["valor"]#valor_br,  # nao puxar valor original, converter antes para decimal em ponto
         mov["tipo"],
         mov["categoria"],
         mov["comentario"],
@@ -86,6 +86,7 @@ def br_to_float(valor):
 
 
     
+
 
 
 
