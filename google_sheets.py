@@ -59,6 +59,24 @@ def carregar_dados():
     return pd.DataFrame(dados)
 
 
+def br_to_float(valor):
+    if valor is None:
+        return None
+    valor = str(valor).strip()
+
+    if valor == "":
+        return None
+
+    # remove milhar e converte decimal
+    valor = valor.replace(".", "").replace(",", ".")
+    try:
+        return float(valor)
+    except:
+        return None
+
+df["valor"] = df["valor"].apply(br_to_float)
+
 
     
+
 
