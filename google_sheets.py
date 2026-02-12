@@ -58,7 +58,7 @@ def carregar_dados():
     dados = sheet.get_all_records()
     #return pd.DataFrame(dados)
     df = pd.DataFrame(dados)
-    df["valor"] = df["valor"].apply(br_to_float)  # apply conversao de decimal de virgula para ponto para conseguir trabalhar com float no python
+    #df["valor"] = df["valor"].apply(br_to_float)  # apply conversao de decimal de virgula para ponto para conseguir trabalhar com float no python
     return df
 
 
@@ -86,6 +86,7 @@ def br_to_float(valor):
 
 
     
+
 
 
 
