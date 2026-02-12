@@ -40,7 +40,7 @@ CATEGORIAS = [
     "Gasolina",
     "Carro-manutenção",
     "Compras",
-    "Farmacia",
+    "Farmácia",
     "Salário",
     "Poupança",
     "Investimento",
@@ -163,6 +163,7 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
