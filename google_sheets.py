@@ -42,11 +42,11 @@ def adicionar_movimentacao(mov):
     sheet = conectar_planilha()
 
     # converter/salvar como ponto para decimal (se entrada for com virgula para decimal), para conseguir trabalhar em Python como float
-    valor_br = f"{mov['valor']:.2f}".replace(".",",")
+    ##valor_br = f"{mov['valor']:.2f}".replace(".",",")
     
     sheet.append_row([
         mov["data"],
-        valor_br,  # nao puxar valor original, converter antes para decimal em ponto
+        float(mov["valor"])#valor_br,  # nao puxar valor original, converter antes para decimal em ponto
         mov["tipo"],
         mov["categoria"],
         mov["comentario"],
@@ -63,15 +63,19 @@ def carregar_dados():
 
 
 def br_to_float(valor):
-    if valor is None:
+    if valor is None or valor == "":
         return None
+
+    # se já for número (caso correto do sheets)
+    if isinstance(valor, (int, float)):
+        return float(valor)
+
+    # se vier como string
     valor = str(valor).strip()
 
-    if valor == "":
-        return None
-
-    # remove milhar e converte decimal
+    # formato brasileiro
     valor = valor.replace(".", "").replace(",", ".")
+
     try:
         return float(valor)
     except:
@@ -80,7 +84,9 @@ def br_to_float(valor):
 
 
 
+
     
+
 
 
 
