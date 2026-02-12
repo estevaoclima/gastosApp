@@ -56,7 +56,9 @@ def adicionar_movimentacao(mov):
 def carregar_dados():
     sheet = conectar_planilha()
     dados = sheet.get_all_records()
-    return pd.DataFrame(dados)
+    #return pd.DataFrame(dados)
+    df = pd.DataFrame(dados)
+    return df
 
 
 def br_to_float(valor):
@@ -78,5 +80,6 @@ df["valor"] = df["valor"].apply(br_to_float)
 
 
     
+
 
 
