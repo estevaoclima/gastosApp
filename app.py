@@ -190,8 +190,8 @@ with tab_visao:
             )
 
             # Improve layout
-           # fig.update_layout(showlegend=True, xaxis_title="Dia da Semana", yaxis_title="Valor (R$)")
-            #st.plotly_chart(fig)
+            fig.update_layout(showlegend=True, xaxis_title="Dia da Semana", yaxis_title="Valor (R$)")
+            st.plotly_chart(fig)
 
 
             #fig = px.line(
