@@ -167,7 +167,7 @@ with tab_visao:
             fig = px.strip(
                 df_semana, 
                 x="diaSemana", 
-                y="valor_signed", 
+                y="valor", 
                 color_discrete_sequence=["#FF4B4B"], # Streamlit Red
                 title="Distribuição e Média de Gastos por Dia"
 
@@ -177,7 +177,7 @@ with tab_visao:
             fig.add_trace(
                 go.Scatter(
                     x=df_media["diaSemana"],
-                    y=df_media["valor_signed"],
+                    y=df_media["valor"],
                     mode='lines+markers',
                     name='Média',
                     line=dict(color='#1F77B4', width=3),
