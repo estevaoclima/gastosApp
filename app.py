@@ -124,7 +124,7 @@ with tab_visao:
                 df_fluxo,
                 x="data",
                 y="valor_signed",
-                title="novotest  Fluxo financeiro diário"
+                title="Fluxo financeiro diário"
             )
 
         # =============================
@@ -152,7 +152,7 @@ with tab_visao:
             df_semana['data'] = pd.to_datetime(df_semana['data']).dt.date
             df_semana['data'] = df_semana['data'].dt.day_name()
             df_semana = df_semana.sort_values("data")
-            df_semana["saldo"] = df_semana["valor_signed"].cumsum()
+            df_semana["saldo"] = df_semana["valor_signed"].mean()#cumsum()
 
             fig = px.line(
                 df_semana,
