@@ -148,7 +148,11 @@ with tab_visao:
         # =============================
         elif visao == "Semana":
             df_semana = df.copy()
+
+            # SOmente Saidas (gastos) e desconsiderar poupançca
             df_semana = df_semana[(df_semana["tipo"] == "Saída") & (df_semana["categoria"] != "Poupança")]
+            # Passar para valore spositivos para melhor grafico
+            df_semana['valor'] = df_semana['valor_signed']*(-1)
             
             df_semana['data'] = pd.to_datetime(df_semana['data'])
             
@@ -157,7 +161,7 @@ with tab_visao:
             df_semana['dia_idx'] = df_semana['data'].dt.weekday  # index of the weekday (eg, 0, 1)
             
             # get mean
-            df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor_signed'].mean().reset_index()
+            df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor'].mean().reset_index()
             df_media = df_media.sort_values('dia_idx')
 
             fig = px.strip(
