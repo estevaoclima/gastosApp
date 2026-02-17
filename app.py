@@ -107,7 +107,7 @@ with tab_visao:
         # -----------------------------
         visao = st.radio(
             "Escolha a visualização",
-            ["Saldo acumulado", "Fluxo diário", "Gastos por categoria", "Tabela", "Semana"]
+            [ "Semana", "Saldo acumulado", "Gastos por categoria", "Tabela", "Fluxo diário"]
         )
 
         # =============================
