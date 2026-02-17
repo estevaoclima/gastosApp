@@ -146,7 +146,7 @@ with tab_visao:
         # PIZZA POR CATEGORIA
         # =============================
         else:
-            df_gastos = df[(df["tipo"] == "Saída") & (df["categoria"] != "poupança")]
+            df_gastos = df[(df["tipo"] == "Saída") & (df["categoria"] != "Poupança")]
 
             fig = px.pie(
                 df_gastos,
@@ -163,6 +163,7 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
