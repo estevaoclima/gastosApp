@@ -107,7 +107,7 @@ with tab_visao:
         # -----------------------------
         visao = st.radio(
             "Escolha a visualização",
-            ["Saldo acumulado", "Fluxo diário", "Gastos por categoria", "Tabela"]
+            ["Saldo acumulado", "Fluxo diário", "Gastos por categoria", "Tabela", "Semana"]
         )
 
         # =============================
@@ -142,6 +142,26 @@ with tab_visao:
                 title="Saldo acumulado ao longo do tempo"
             )
 
+
+        # =============================
+        # GASTOS NA SEMANA
+        # =============================
+        elif visao == "Semana":
+            df_semana = df
+            df_semana['data'] = df_semana['data'].pd.day_name()
+            df_saldo = df_semana.sort_values("data")
+            df_saldo["saldo"] = df_saldo["valor_signed"].cumsum()
+
+            fig = px.line(
+                df_saldo,
+                x="data",
+                y="saldo",
+                markers=True,
+                title="Saldo acumulado ao longo do tempo"
+            )
+
+
+        
         # =============================
         # PIZZA POR CATEGORIA
         # =============================
@@ -161,7 +181,7 @@ with tab_visao:
         # TABELA
         # =============================
         elif visao == "Tabela":
-            "%d/%m/%Y"
+            
             df_tabela = df[['data','categoria', 'valor', "tipo"]].copy()
             df_tabela['data'] = pd.to_datetime(df_tabela['data']).dt.date
             st.dataframe(df_tabela)
@@ -175,6 +195,7 @@ with tab_visao:
               font=dict(color="white")
           )
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
