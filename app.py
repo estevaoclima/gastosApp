@@ -147,17 +147,19 @@ with tab_visao:
         # GASTOS NA SEMANA
         # =============================
         elif visao == "Semana":
-            df_semana = df
+            df_semana = df.copy()
             
-            df_semana['data'] = pd.to_datetime(df_semana['data']).dt.date
-            df_semana['data'] = df_semana['data'].dt.day_name()
-            df_semana = df_semana.sort_values("data")
-            df_semana["saldo"] = df_semana["valor_signed"].mean()#cumsum()
+            df_semana['data'] = pd.to_datetime(df_semana['data'])
+            df_semana['diaSemana'] = df_semana['data'].dt.day_name()
+            # cria ordenacao numerica para os dias da semana
+            df_semana['dia_idx'] = df_semana['diaSemana'].dt.weekday
+            df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor_signed'].mean().reset_index()
+            df_media = df_media.sort_values('dia_idx')
 
             fig = px.line(
-                df_semana,
-                x="data",
-                y="saldo",
+                df_media,
+                x="diaSemana",
+                y="valor_signed",
                 markers=True,
                 title="Gastos por dia da semana"
             )
