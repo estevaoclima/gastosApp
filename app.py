@@ -161,7 +161,9 @@ with tab_visao:
         # TABELA
         # =============================
         elif visao == "Tabela":
-            df_tabela = df[['categoria', 'valor','data']].copy()
+            "%d/%m/%Y"
+            df_tabela = df[['data','categoria', 'valor', "tipo"]].copy()
+            df_tabela['data'] = pd.to_datetime(df_tabela['data']).dt.date
             st.dataframe(df_tabela)
             
 
@@ -173,6 +175,7 @@ with tab_visao:
               font=dict(color="white")
           )
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
