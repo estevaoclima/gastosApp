@@ -148,6 +148,7 @@ with tab_visao:
         # =============================
         elif visao == "Semana":
             df_semana = df.copy()
+            df_semana = df_semana[(df_semana["tipo"] == "Saída") & (df_semana["categoria"] != "Poupança")]
             
             df_semana['data'] = pd.to_datetime(df_semana['data'])
             
