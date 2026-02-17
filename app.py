@@ -107,7 +107,7 @@ with tab_visao:
         # -----------------------------
         visao = st.radio(
             "Escolha a visualização",
-            ["Saldo acumulado", "Fluxo diário", "Gastos por categoria"]
+            ["Saldo acumulado", "Fluxo diário", "Gastos por categoria", "Tabela"]
         )
 
         # =============================
@@ -175,6 +175,7 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
