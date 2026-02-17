@@ -147,60 +147,63 @@ with tab_visao:
         # GASTOS NA SEMANA
         # =============================
         elif visao == "Semana":
-
-            # cria DF propria (p nao quebrar original)
-            df_semana = df.copy()
             
-            ## Botao com seletor de categorias
-            selection = st.pills("Categorias", df_semana["categoria"], selection_mode="multi")
-            #st.markdown(f"Your selected options: {selection}.")
-
-            if cat in selection:
-                df_semana = df_semana[(df_semana["categoria"] == cat)]
-
             ## para calculo e plot do grafico
-            #df_semana = df.copy()
+            df_semana = df.copy()
 
 
             # SOmente Saidas (gastos) e desconsiderar poupançca
             df_semana = df_semana[(df_semana["tipo"] == "Saída") & (df_semana["categoria"] != "Poupança")]
-            # Passar para valore spositivos para melhor grafico
-            df_semana['valor'] = df_semana['valor_signed']*(-1)
-            
-            df_semana['data'] = pd.to_datetime(df_semana['data'])
-            
-            # cria ordenacao numerica para os dias da semana
-            df_semana['diaSemana'] = df_semana['data'].dt.day_name()  # name of the weekday (eg, monday)
-            df_semana['dia_idx'] = df_semana['data'].dt.weekday  # index of the weekday (eg, 0, 1)
-            
-            # get mean
-            df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor'].mean().reset_index()
-            df_media = df_media.sort_values('dia_idx')
 
-            #cria ordem
-            diasOrdem = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            # fiiltra pelo userInput
+            cat_option = sorted(df_semana["categoria"].unique())
+            selection = st.pills("Filtrar categorias", cat_option, selection_mode="multi")
 
-            fig = px.strip(
-                df_semana, 
-                x="diaSemana", 
-                y="valor", 
-                color_discrete_sequence=["#FF4B4B"], # Streamlit Red
-                category_orders = {"diaSemana":diasOrdem},
-                title="Distribuição e Média de Gastos por Dia"
+            # apply only if something is selected
+            if selection:
+                df_semana = df_semana[df_semana['categoria'].isin(selection)]
 
-            )
-        # 3. Add the Mean Line (Blue)
-            import plotly.graph_objects as go
-            fig.add_trace(
-                go.Scatter(
-                    x=df_media["diaSemana"],
-                    y=df_media["valor"],
-                    mode='lines+markers',
-                    name='Média',
-                    line=dict(color='#1F77B4', width=3),
-                    marker=dict(size=10, symbol='diamond')
+            # erro: e se nenhum dado nesta categoria
+            if df_semana.empty()
+                st.warning("Nenhum gasto deste tipo foi encontrado")
+            else:
+                # Passar para valore spositivos para melhor grafico
+                df_semana['valor'] = df_semana['valor_signed']*(-1)
+                
+                df_semana['data'] = pd.to_datetime(df_semana['data'])
+                
+                # cria ordenacao numerica para os dias da semana
+                df_semana['diaSemana'] = df_semana['data'].dt.day_name()  # name of the weekday (eg, monday)
+                df_semana['dia_idx'] = df_semana['data'].dt.weekday  # index of the weekday (eg, 0, 1)
+                
+                # get mean
+                df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor'].mean().reset_index()
+                df_media = df_media.sort_values('dia_idx')
+
+                #cria ordem
+                diasOrdem = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+                fig = px.strip(
+                    df_semana, 
+                    x="diaSemana", 
+                    y="valor", 
+                    color_discrete_sequence=["#FF4B4B"], # Streamlit Red
+                    category_orders = {"diaSemana":diasOrdem},
+                    title="Distribuição e Média de Gastos por Dia"
+
                 )
-            )
+            # 3. Add the Mean Line (Blue)
+                import plotly.graph_objects as go
+                fig.add_trace(
+                    go.Scatter(
+                        x=df_media["diaSemana"],
+                        y=df_media["valor"],
+                        mode='lines+markers',
+                        name='Média',
+                        line=dict(color='#1F77B4', width=3),
+                        marker=dict(size=10, symbol='diamond')
+                    )
+                )
 
             # Improve layout
             #fig.update_layout(showlegend=True, xaxis_title="Dia da Semana", yaxis_title="Valor (R$)")
