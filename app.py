@@ -164,7 +164,7 @@ with tab_visao:
                 df_semana = df_semana[df_semana['categoria'].isin(selection)]
 
             # erro: e se nenhum dado nesta categoria
-            if df_semana.empty():
+            if df_semana.empty:
                 st.warning("Nenhum gasto deste tipo foi encontrado")
             else:
                 # Passar para valore spositivos para melhor grafico
