@@ -164,11 +164,15 @@ with tab_visao:
             df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor'].mean().reset_index()
             df_media = df_media.sort_values('dia_idx')
 
+            #cria ordem
+            diasOrdem = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
             fig = px.strip(
                 df_semana, 
                 x="diaSemana", 
                 y="valor", 
                 color_discrete_sequence=["#FF4B4B"], # Streamlit Red
+                category_orders = {"diaSemana":diasOrdem},
                 title="Distribuição e Média de Gastos por Dia"
 
             )
