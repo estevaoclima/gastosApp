@@ -160,7 +160,7 @@ with tab_visao:
         # =============================
         # TABELA
         # =============================
-    elif visao == "Tabela":
+        elif visao == "Tabela":
             df_tabela = df[['categoria', 'valor','data']].copy()
             st.dataframe(df_tabela)
             
@@ -168,14 +168,14 @@ with tab_visao:
         
 
         # Estilo escuro
-if visao != "Tabela":
+    if visao != "Tabela":
            fig.update_layout(
               plot_bgcolor="black",
               paper_bgcolor="black",
               font=dict(color="white")
           )
-
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
