@@ -165,16 +165,15 @@ with tab_visao:
             st.dataframe(df_tabela)
             
 
-        
-
         # Estilo escuro
     if visao != "Tabela":
-           fig.update_layout(
+        fig.update_layout(
               plot_bgcolor="black",
               paper_bgcolor="black",
               font=dict(color="white")
           )
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
