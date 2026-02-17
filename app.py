@@ -150,19 +150,48 @@ with tab_visao:
             df_semana = df.copy()
             
             df_semana['data'] = pd.to_datetime(df_semana['data'])
-            df_semana['diaSemana'] = df_semana['data'].dt.day_name()  # name of the weekday (eg, monday)
+            
             # cria ordenacao numerica para os dias da semana
+            df_semana['diaSemana'] = df_semana['data'].dt.day_name()  # name of the weekday (eg, monday)
             df_semana['dia_idx'] = df_semana['data'].dt.weekday  # index of the weekday (eg, 0, 1)
+            
+            # get mean
             df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor_signed'].mean().reset_index()
             df_media = df_media.sort_values('dia_idx')
 
-            fig = px.line(
-                df_media,
-                x="diaSemana",
-                y="valor_signed",
-                markers=True,
-                title="Gastos por dia da semana"
+            fig = px.strip(
+                df_semana, 
+                x="diaSemana", 
+                y="valor_signed", 
+                color_discrete_sequence=["#FF4B4B"], # Streamlit Red
+                title="Distribuição e Média de Gastos por Dia"
+
             )
+        # 3. Add the Mean Line (Blue)
+            import plotly.graph_objects as go
+            fig.add_trace(
+                go.Scatter(
+                    x=df_media["diaSemana"],
+                    y=df_media["valor_signed"],
+                    mode='lines+markers',
+                    name='Média',
+                    line=dict(color='#1F77B4', width=3),
+                    marker=dict(size=10, symbol='diamond')
+                )
+            )
+
+            # Improve layout
+            fig.update_layout(showlegend=True, xaxis_title="Dia da Semana", yaxis_title="Valor (R$)")
+            st.plotly_chart(fig)
+
+
+            #fig = px.line(
+            #    df_media,
+            #    x="diaSemana",
+            #    y="valor_signed",
+            #    markers=True,
+            #    title="Gastos por dia da semana"
+            #)
 
 
         
