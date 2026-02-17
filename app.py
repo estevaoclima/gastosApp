@@ -145,7 +145,7 @@ with tab_visao:
         # =============================
         # PIZZA POR CATEGORIA
         # =============================
-        elif:  visao == "Gastos por categoria":
+        elif  visao == "Gastos por categoria":
             
             df_gastos = df[(df["tipo"] == "Saída") & (df["categoria"] != "Poupança")]
 
@@ -175,6 +175,7 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
