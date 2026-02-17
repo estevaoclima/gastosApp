@@ -161,7 +161,7 @@ with tab_visao:
         # TABELA
         # =============================
         else:
-            df_tabela = df
+            df_tabela = df[['categoria', 'valor','data']].copy()
             st.dataframe(df_tabela)
             
 
@@ -175,6 +175,7 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
