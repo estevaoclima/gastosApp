@@ -145,8 +145,10 @@ with tab_visao:
         # =============================
         # PIZZA POR CATEGORIA
         # =============================
-        else:
+        elif:  visao == "Gastos por categoria":
+            
             df_gastos = df[(df["tipo"] == "Saída") & (df["categoria"] != "Poupança")]
+
 
             fig = px.pie(
                 df_gastos,
@@ -154,6 +156,16 @@ with tab_visao:
                 names="categoria",
                 title="Distribuição de gastos por categoria"
             )
+
+        # =============================
+        # TABELA
+        # =============================
+        else:
+            df_tabela = df
+            st.dataframe(df_tabela)
+            
+
+        
 
         # Estilo escuro
         fig.update_layout(
@@ -163,6 +175,7 @@ with tab_visao:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
