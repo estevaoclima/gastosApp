@@ -168,7 +168,7 @@ with tab_visao:
         
 
         # Estilo escuro
-      if visao != "Tabela":
+if visao != "Tabela":
            fig.update_layout(
               plot_bgcolor="black",
               paper_bgcolor="black",
@@ -176,6 +176,7 @@ with tab_visao:
           )
 
         st.plotly_chart(fig, use_container_width=True)
+
 
 
 
