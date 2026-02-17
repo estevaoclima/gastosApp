@@ -150,9 +150,9 @@ with tab_visao:
             df_semana = df.copy()
             
             df_semana['data'] = pd.to_datetime(df_semana['data'])
-            df_semana['diaSemana'] = df_semana['data'].dt.day_name()
+            df_semana['diaSemana'] = df_semana['data'].dt.day_name()  # name of the weekday (eg, monday)
             # cria ordenacao numerica para os dias da semana
-            df_semana['dia_idx'] = df_semana['diaSemana'].dt.weekday
+            df_semana['dia_idx'] = df_semana['data'].dt.weekday  # index of the weekday (eg, 0, 1)
             df_media = df_semana.groupby(['dia_idx', 'diaSemana'])['valor_signed'].mean().reset_index()
             df_media = df_media.sort_values('dia_idx')
 
