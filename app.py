@@ -124,7 +124,7 @@ with tab_visao:
                 df_fluxo,
                 x="data",
                 y="valor_signed",
-                title="teste  Fluxo financeiro diário"
+                title="novotest  Fluxo financeiro diário"
             )
 
         # =============================
