@@ -147,6 +147,15 @@ with tab_visao:
         # GASTOS NA SEMANA
         # =============================
         elif visao == "Semana":
+
+
+            ## Botao com seletor de categorias
+            options = ["North", "East", "South", "West"]
+            selection = st.pills("Directions", options, selection_mode="multi")
+            st.markdown(f"Your selected options: {selection}.")
+
+
+            ## para calculo e plot do grafico
             df_semana = df.copy()
 
             # SOmente Saidas (gastos) e desconsiderar poupançca
