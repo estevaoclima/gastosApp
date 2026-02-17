@@ -152,14 +152,15 @@ with tab_visao:
             df_semana = df.copy()
             
             ## Botao com seletor de categorias
-            options = ["North", "East", "South", "West"]
-            #selection = st.pills("Categorias", options, selection_mode="multi")
             selection = st.pills("Categorias", df_semana["categoria"], selection_mode="multi")
             #st.markdown(f"Your selected options: {selection}.")
 
+            if cat in selection:
+                df_semana = df_semana[(df_semana["categoria"] == cat)]
 
             ## para calculo e plot do grafico
             #df_semana = df.copy()
+
 
             # SOmente Saidas (gastos) e desconsiderar poupançca
             df_semana = df_semana[(df_semana["tipo"] == "Saída") & (df_semana["categoria"] != "Poupança")]
