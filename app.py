@@ -124,7 +124,7 @@ with tab_visao:
                 df_fluxo,
                 x="data",
                 y="valor_signed",
-                title="Fluxo financeiro diário"
+                title="teste  Fluxo financeiro diário"
             )
 
         # =============================
@@ -148,16 +148,18 @@ with tab_visao:
         # =============================
         elif visao == "Semana":
             df_semana = df
-            df_semana['data'] = df_semana['data'].pd.day_name()
-            df_saldo = df_semana.sort_values("data")
-            df_saldo["saldo"] = df_saldo["valor_signed"].cumsum()
+            
+            df_semana['data'] = pd.to_datetime(df_semana['data']).dt.date
+            df_semana['data'] = df_semana['data'].dt.day_name()
+            df_semana = df_semana.sort_values("data")
+            df_semana["saldo"] = df_semana["valor_signed"].cumsum()
 
             fig = px.line(
-                df_saldo,
+                df_semana,
                 x="data",
                 y="saldo",
                 markers=True,
-                title="Saldo acumulado ao longo do tempo"
+                title="Gastos por dia da semana"
             )
 
 
